@@ -26,6 +26,7 @@ const Home = (props) => {
             <ItemGridView
               cur={cur}
               handleOnClick={props.handleOnClick}
+              handleSelectOnChange={props.handleSelectOnChange}
               key={index}
             />
           ))}

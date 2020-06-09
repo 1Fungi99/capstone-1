@@ -1,5 +1,3 @@
-// const Tags = [];
-
 const Products = [
   // {
   //     id: SKU,

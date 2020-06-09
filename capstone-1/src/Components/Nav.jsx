@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // React Router Imports
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -27,6 +27,7 @@ import Cart from "./Cart";
 
 // Logo Import
 import Logo from "../Assets/Logo.png";
+import Products from "../Assets/Products";
 
 // Declaring theme
 const useStyles = makeStyles((theme) => ({
@@ -47,31 +48,57 @@ const StyledBadge = withStyles((theme) => ({
 const Nav = () => {
   const classes = useStyles();
 
+  // State declaration
   const [cartQuantity, setCartQuantity] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [searchArray, setSearchArray] = useState("");
+  const [searchBool, setSearchBool] = useState(false);
 
-  useEffect(() => {
-    console.log("useEffect Log: ");
-    console.log(searchInput);
-  });
+  let tempItemArray = [];
 
-  const handleOnChange = (str) => {
+  // handles the on change for the submit
+  const handleSubmitOnChange = (str) => {
     setSearchInput(str);
   };
 
-  const handleOnClick = (data) => {
-    console.log(data);
-    setCartQuantity(cartQuantity + 1);
-    setCartItems(cartItems.concat(data));
-    console.log(cartItems);
+  // search functionality
+  const handleSearchSubmit = () => {
+    setSearchArray([]);
+    setSearchBool(true);
+    Products.forEach((product) => {
+      const searchInputLowerCase = searchInput.toLowerCase();
+      const name = product.name.toLowerCase();
+      if (name.search(searchInputLowerCase) !== -1) {
+        setSearchArray(searchArray.concat(product));
+        console.log("sku: " + product.id + " was added ");
+      }
+    });
   };
 
-  const handleSearchSubmit = () => {
-    console.log("Search Submitted");
+  // adding item to {cartItems} array
+  const handleOnClick = (data, quantity) => {
+    tempItemArray = [];
+    setCartQuantity(cartQuantity + parseInt(quantity));
+    for (let i = 0; i < parseInt(quantity); i++) {
+      tempItemArray.push(data);
+    }
+    setCartItems(cartItems.concat(tempItemArray));
+  };
+
+  // takes in input from the select input
+  const handleSelectOnChange = (data) => {
+    console.log(data);
+  };
+
+  // mass delete function
+  const handleClearCartOnClick = () => {
+    setCartItems([]);
+    console.log("Cart was cleared");
   };
 
   return (
+    // react router
     <Router>
       <div style={{ display: "flex" }}>
         <Drawer
@@ -93,7 +120,7 @@ const Nav = () => {
               <ListItemText>
                 <InputBase
                   placeholder="Search..."
-                  onChange={(e) => handleOnChange(e.target.value)}
+                  onChange={(e) => handleSubmitOnChange(e.target.value)}
                 />
               </ListItemText>
             </ListItem>
@@ -110,7 +137,10 @@ const Nav = () => {
             <Link to="/cart" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>
-                  <StyledBadge badgeContent={cartQuantity} color="secondary">
+                  <StyledBadge
+                    badgeContent={cartItems.length}
+                    color="secondary"
+                  >
                     <ShoppingCartIcon />
                   </StyledBadge>
                 </ListItemIcon>
@@ -122,10 +152,17 @@ const Nav = () => {
 
         <Switch>
           <Route exact path="/">
-            <Home handleOnClick={handleOnClick} />
+            <Home
+              searchBool={searchBool}
+              handleSelectOnChange={handleSelectOnChange}
+              handleOnClick={handleOnClick}
+            />
           </Route>
           <Route exact path="/cart">
-            <Cart cartItems={cartItems} />
+            <Cart
+              cartItems={cartItems}
+              handleClearCartOnClick={handleClearCartOnClick}
+            />
           </Route>
         </Switch>
       </div>
