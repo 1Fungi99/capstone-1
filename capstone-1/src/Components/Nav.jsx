@@ -19,6 +19,7 @@ import {
 import HomeIcon from "@material-ui/icons/Home";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import SearchIcon from "@material-ui/icons/Search";
+import ClearIcon from "@material-ui/icons/Clear";
 import Badge from "@material-ui/core/Badge";
 
 // Component Imports
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
   img: { height: "67px" },
 }));
 
+// Styling for shopping Cart badge
 const StyledBadge = withStyles((theme) => ({
   badge: {
     right: -3,
@@ -46,16 +48,15 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const Nav = () => {
+  // calling theme
   const classes = useStyles();
 
   // State declaration
   const [cartQuantity, setCartQuantity] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [searchArray, setSearchArray] = useState("");
+  const [searchArray, setSearchArray] = useState([]);
   const [searchBool, setSearchBool] = useState(false);
-
-  let tempItemArray = [];
 
   // handles the on change for the submit
   const handleSubmitOnChange = (str) => {
@@ -64,21 +65,39 @@ const Nav = () => {
 
   // search functionality
   const handleSearchSubmit = () => {
-    setSearchArray([]);
+    let testArray = [];
+    const searchInputLowerCase = searchInput.toLowerCase();
+
+    // Setting {searchArray} to []
+    setSearchArray(testArray);
     setSearchBool(true);
     Products.forEach((product) => {
-      const searchInputLowerCase = searchInput.toLowerCase();
       const name = product.name.toLowerCase();
+      const SKU = product.id;
+      const make = product.manufacturer.toLowerCase();
+
+      // Search by name
       if (name.search(searchInputLowerCase) !== -1) {
-        setSearchArray(searchArray.concat(product));
-        console.log("sku: " + product.id + " was added ");
-      }
+        testArray.push(product);
+        setSearchArray(testArray);
+        // search by SKU
+      } else if (SKU.toString().search(searchInputLowerCase) !== -1) {
+        testArray.push(product);
+        console.log(testArray);
+        setSearchArray(testArray);
+        // Search by manufacturer
+      } else if (make.search(searchInputLowerCase) !== -1) {
+        testArray.push(product);
+        console.log(testArray);
+        setSearchArray(testArray);
+        // no match handling
+      } else console.log("no match");
     });
   };
 
   // adding item to {cartItems} array
   const handleOnClick = (data, quantity) => {
-    tempItemArray = [];
+    let tempItemArray = [];
     setCartQuantity(cartQuantity + parseInt(quantity));
     for (let i = 0; i < parseInt(quantity); i++) {
       tempItemArray.push(data);
@@ -95,6 +114,21 @@ const Nav = () => {
   const handleClearCartOnClick = () => {
     setCartItems([]);
     console.log("Cart was cleared");
+  };
+
+  const ClearButtonRender = () => {
+    if (searchBool) {
+      return (
+        <>
+          <ListItem button onClick={() => setSearchBool(false)}>
+            <ListItemIcon>
+              <ClearIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Clear Search"} />
+          </ListItem>
+        </>
+      );
+    } else return <></>;
   };
 
   return (
@@ -124,6 +158,7 @@ const Nav = () => {
                 />
               </ListItemText>
             </ListItem>
+            <ClearButtonRender />
             {/* Back to home */}
             <Link to="/" className={classes.link}>
               <ListItem button>
@@ -154,6 +189,7 @@ const Nav = () => {
           <Route exact path="/">
             <Home
               searchBool={searchBool}
+              searchArray={searchArray}
               handleSelectOnChange={handleSelectOnChange}
               handleOnClick={handleOnClick}
             />

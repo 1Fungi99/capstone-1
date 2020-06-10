@@ -139,6 +139,31 @@ const Products = [
     img:
       "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6357/6357223_sd.jpg;maxHeight=640;maxWidth=550",
   },
+  // Cases
+  {
+    id: 6364328,
+    name: "H510 Compact ATX Mid-Tower Case with Tempered Glass - Matte Black",
+    price: 69.99,
+    manufacturer: "NZXT",
+    img:
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6364/6364328_sd.jpg;maxHeight=640;maxWidth=550",
+  },
+  {
+    id: 6370550,
+    name: "iCUE 220T RGB Airflow ATX Mid-Tower Smart Case - Black",
+    price: 99.99,
+    manufacturer: "Corsair",
+    img:
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6370/6370550cv13d.jpg;maxHeight=640;maxWidth=550",
+  },
+  {
+    id: 6337953,
+    name: "TALOS ATX Mid-Tower Case",
+    price: 159.99,
+    manufacturer: "GAMDIAS",
+    img:
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6337/6337953cv11d.jpg;maxHeight=640;maxWidth=550",
+  },
 ];
 
 export default Products;
