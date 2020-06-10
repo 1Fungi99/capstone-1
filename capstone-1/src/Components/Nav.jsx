@@ -13,6 +13,7 @@ import {
   ListItemText,
   InputBase,
   IconButton,
+  FormControl,
 } from "@material-ui/core";
 
 // Icon import
@@ -116,11 +117,15 @@ const Nav = () => {
     console.log("Cart was cleared");
   };
 
+  const handleClearInput = () => {
+    setSearchBool(false);
+    setSearchInput("");
+  };
   const ClearButtonRender = () => {
     if (searchBool) {
       return (
         <>
-          <ListItem button onClick={() => setSearchBool(false)}>
+          <ListItem button onClick={() => handleClearInput()}>
             <ListItemIcon>
               <ClearIcon />
             </ListItemIcon>
@@ -147,14 +152,16 @@ const Nav = () => {
             {/* Search Items */}
             <ListItem>
               <ListItemIcon>
-                <IconButton onClick={() => handleSearchSubmit()}>
+                <IconButton type="submit" onClick={() => handleSearchSubmit()}>
                   <SearchIcon />
                 </IconButton>
               </ListItemIcon>
               <ListItemText>
                 <InputBase
+                  value={searchInput}
                   placeholder="Search..."
                   onChange={(e) => handleSubmitOnChange(e.target.value)}
+                  onKeyPress={(e) => console.log(e.target.value)}
                 />
               </ListItemText>
             </ListItem>
