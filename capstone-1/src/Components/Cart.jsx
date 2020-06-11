@@ -130,7 +130,7 @@ const Cart = (props) => {
               <Button onClick={() => props.handleClearCartOnClick()}>
                 Clear Cart
               </Button>
-              <Button>Checkout</Button>
+              <Button onClick={() => props.handleCheckout()}>Checkout</Button>
             </CardActions>
           </div>
         )}

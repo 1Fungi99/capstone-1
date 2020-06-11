@@ -162,6 +162,11 @@ const Nav = () => {
     setSearchInput("");
   };
 
+  const handleCheckout = () => {
+    alert("Thank you for shopping with us!");
+    handleClearCartOnClick();
+  };
+
   // conditional rendering for Clear button w/ functionality
   const ClearButtonRender = () => {
     if (searchBool || searchInput !== "") {
@@ -265,6 +270,7 @@ const Nav = () => {
               cartItems={cartItems}
               setCartItems={setCartItems}
               handleClearCartOnClick={handleClearCartOnClick}
+              handleCheckout={handleCheckout}
             />
           </Route>
           <Route exact path="/admin">
