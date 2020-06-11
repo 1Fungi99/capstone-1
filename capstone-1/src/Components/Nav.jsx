@@ -34,6 +34,7 @@ import Logo from "../Assets/Logo.png";
 // Inventory Data
 import Products from "../Assets/Products";
 
+// Force Update
 import useForceUpdate from "use-force-update";
 
 // Declaring theme
@@ -56,15 +57,14 @@ const StyledBadge = withStyles((theme) => ({
 const Nav = () => {
   // calling theme
   const classes = useStyles();
+  const forceUpdate = useForceUpdate();
 
   // State declaration
-  const [cartQuantity, setCartQuantity] = useState(0);
-  const [cartItems, setCartItems] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
-  const [searchArray, setSearchArray] = useState([]);
-  const [searchBool, setSearchBool] = useState(false);
-
-  const forceUpdate = useForceUpdate();
+  const [cartQuantity, setCartQuantity] = useState(0); // for StyledBadge in nav bar
+  const [cartItems, setCartItems] = useState([]); // array of objects for Cart.jsx
+  const [searchInput, setSearchInput] = useState(""); // Search Input
+  const [searchArray, setSearchArray] = useState([]); // array of objects based on searchInput
+  const [searchBool, setSearchBool] = useState(false); // see if the user has searched something
 
   // handles the on change for the submit
   const handleSubmitOnChange = (str) => {
@@ -111,9 +111,11 @@ const Nav = () => {
       moreThanOneArray.push(product.id);
     });
 
+    // setting a set amount
     let quantityReserved = cartItems.filter((product) => product.id === data.id)
       .length;
 
+    // checking to see if the cart array contains a LIMIT(1) item
     if (
       (moreThanOneArray.includes(6302019) && data.id === 6302019) ||
       (moreThanOneArray.includes(6356274) && data.id === 6356274) ||
@@ -154,11 +156,13 @@ const Nav = () => {
     setCartItems([]);
   };
 
+  // Clearing the search bar
   const handleClearInput = () => {
     setSearchBool(false);
     setSearchInput("");
   };
 
+  // conditional rendering for Clear button w/ functionality
   const ClearButtonRender = () => {
     if (searchBool || searchInput !== "") {
       return (
@@ -173,6 +177,8 @@ const Nav = () => {
       );
     } else return <></>;
   };
+
+  // Force update DOM function, called when needed
   const update = () => {
     forceUpdate();
   };
@@ -231,6 +237,7 @@ const Nav = () => {
                 <ListItemText primary={"Your Cart"} />
               </ListItem>
             </Link>
+            {/* Send to admin window */}
             <Link to="/admin" className={classes.link}>
               <ListItem button>
                 <ListItemIcon>

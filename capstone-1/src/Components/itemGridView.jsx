@@ -24,6 +24,7 @@ const ItemGridView = (props) => {
   const classes = useStyles();
 
   const currentItem = props.cur;
+
   let itemQuantity = 1;
 
   const handleSelectOnChange = (selectQuantity) => {
@@ -34,7 +35,6 @@ const ItemGridView = (props) => {
   for (let i = 0; i <= props.cur.quantity; i++) {
     optionArray.push(i);
   }
-  // const OptionRender = () => {
 
   // };
   return (

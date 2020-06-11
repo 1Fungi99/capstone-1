@@ -1,4 +1,6 @@
 import React from "react";
+
+// Material UI imports
 import {
   Container,
   Typography,
@@ -9,6 +11,7 @@ import {
   Button,
 } from "@material-ui/core";
 
+// Force Update
 import useForceUpdate from "use-force-update";
 
 const useStyles = makeStyles((theme) => ({
@@ -39,19 +42,24 @@ const useStyles = makeStyles((theme) => ({
 
 const Cart = (props) => {
   const classes = useStyles();
-  const items = props.cartItems;
-  let total = 0;
-  const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  let itemPriceArray = [];
   const forceUpdate = useForceUpdate();
 
+  const items = props.cartItems;
+  let total = 0;
+  let itemPriceArray = [];
+
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+  // if items are present, total is calculated w/o tax
   if (items.length !== 0) {
     items.forEach((item) => {
       itemPriceArray.push(item.price);
     });
+    // passing to reducer to sum up entire array
     total = itemPriceArray.reduce(reducer);
   }
 
+  // handle deletion of a single item from the cart
   const handleSingleDelete = (index) => {
     items.splice(index, 1);
     props.setCartItems(items);
@@ -65,11 +73,14 @@ const Cart = (props) => {
         Your Cart
       </Typography>
       <Card className={classes.cardContainer}>
+        {/* conditional rendering to see if items are present */}
         {items.length === 0 ? (
+          // if cart is empty
           <Typography variant="h5" gutterBottom>
             Try adding something to cart
           </Typography>
         ) : (
+          // if cart elements are present
           items.map((cur, num) => (
             <Grid key={num} item md>
               <Card className={classes.card}>
@@ -98,9 +109,13 @@ const Cart = (props) => {
             </Grid>
           ))
         )}
+        {/* rendering price if items present */}
         {items.length === 0 ? (
-          <div></div>
+          // if items not present
+          <></>
         ) : (
+          // if items present
+          // simple math to determine taxes and final total
           <div className={classes.totalDiv}>
             <Typography variant="body1" className={classes.checkoutText}>
               Sub-total: $ {total.toFixed(2)}

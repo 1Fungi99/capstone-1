@@ -65,6 +65,7 @@ const Admin = (props) => {
         <Typography variant="h4" className={classes.title}>
           Admin Sign In
         </Typography>
+        {/* Conditional rendering if input matches set credentials */}
         <form>
           {!errorToggle ? (
             <TextField
