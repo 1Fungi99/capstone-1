@@ -207,6 +207,7 @@ const Nav = () => {
               </ListItemText>
             </ListItem>
             <ClearButtonRender />
+            <hr />
             {/* Back to home */}
             <Link to="/" className={classes.link}>
               <ListItem button>
@@ -238,6 +239,7 @@ const Nav = () => {
                 <ListItemText primary={"Admin"} />
               </ListItem>
             </Link>
+            <hr />
           </List>
         </Drawer>
 
