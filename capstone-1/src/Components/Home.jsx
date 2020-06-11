@@ -1,7 +1,7 @@
 import React from "react";
 
 // Material UI
-import { Container, Typography, Grid, Button } from "@material-ui/core";
+import { Container, Typography, Grid } from "@material-ui/core";
 
 // Products list
 import Products from "../Assets/Products";
@@ -11,6 +11,7 @@ import ItemGridView from "./itemGridView";
 
 const Home = (props) => {
   const searchArray = props.searchArray;
+
   return (
     <>
       <Container maxWidth="lg">

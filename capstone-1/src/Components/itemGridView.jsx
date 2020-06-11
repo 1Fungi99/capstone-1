@@ -17,7 +17,7 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 const useStyles = makeStyles((theme) => ({
   card: { marginBottom: 20, flexDirection: "row" },
   img: { width: 300, float: "left", padding: 15 },
-  item_text: { marginLeft: 310 },
+  item_text: { marginLeft: 310, width: 800 },
 }));
 
 const ItemGridView = (props) => {
@@ -30,6 +30,13 @@ const ItemGridView = (props) => {
     itemQuantity = selectQuantity;
   };
 
+  let optionArray = [];
+  for (let i = 0; i <= props.cur.quantity; i++) {
+    optionArray.push(i);
+  }
+  // const OptionRender = () => {
+
+  // };
   return (
     <>
       <Grid item md>
@@ -46,22 +53,32 @@ const ItemGridView = (props) => {
             <Typography variant="body2" className={classes.item_text}>
               SKU: {props.cur.id}
             </Typography>
+            <Typography variant="body2" className={classes.item_text}>
+              In Stock: {props.cur.quantity}
+            </Typography>
+            {props.cur.price > 450 ? (
+              <Typography variant="body2" className={classes.item_text}>
+                Limit (1) per customer.
+              </Typography>
+            ) : (
+              <></>
+            )}
+
             <CardActions>
-              <NativeSelect
-                defaultValue="1"
-                onChange={(e) => handleSelectOnChange(e.target.value)}
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </NativeSelect>
+              {props.cur.price > 450 ? (
+                <></>
+              ) : (
+                <NativeSelect
+                  defaultValue="1"
+                  onChange={(e) => handleSelectOnChange(e.target.value)}
+                >
+                  {optionArray.map((cur) => (
+                    <option key={cur} value={cur}>
+                      {cur}
+                    </option>
+                  ))}
+                </NativeSelect>
+              )}
               <Button
                 onClick={() => props.handleOnClick(currentItem, itemQuantity)}
               >

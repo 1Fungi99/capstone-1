@@ -13,7 +13,6 @@ import {
   ListItemText,
   InputBase,
   IconButton,
-  FormControl,
 } from "@material-ui/core";
 
 // Icon import
@@ -22,14 +21,20 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import SearchIcon from "@material-ui/icons/Search";
 import ClearIcon from "@material-ui/icons/Clear";
 import Badge from "@material-ui/core/Badge";
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 
 // Component Imports
 import Home from "./Home";
 import Cart from "./Cart";
+import Admin from "./Admin";
 
 // Logo Import
 import Logo from "../Assets/Logo.png";
+
+// Inventory Data
 import Products from "../Assets/Products";
+
+import useForceUpdate from "use-force-update";
 
 // Declaring theme
 const useStyles = makeStyles((theme) => ({
@@ -59,6 +64,8 @@ const Nav = () => {
   const [searchArray, setSearchArray] = useState([]);
   const [searchBool, setSearchBool] = useState(false);
 
+  const forceUpdate = useForceUpdate();
+
   // handles the on change for the submit
   const handleSubmitOnChange = (str) => {
     setSearchInput(str);
@@ -84,12 +91,10 @@ const Nav = () => {
         // search by SKU
       } else if (SKU.toString().search(searchInputLowerCase) !== -1) {
         testArray.push(product);
-        console.log(testArray);
         setSearchArray(testArray);
         // Search by manufacturer
       } else if (make.search(searchInputLowerCase) !== -1) {
         testArray.push(product);
-        console.log(testArray);
         setSearchArray(testArray);
         // no match handling
       } else console.log("no match");
@@ -99,11 +104,44 @@ const Nav = () => {
   // adding item to {cartItems} array
   const handleOnClick = (data, quantity) => {
     let tempItemArray = [];
-    setCartQuantity(cartQuantity + parseInt(quantity));
-    for (let i = 0; i < parseInt(quantity); i++) {
-      tempItemArray.push(data);
+
+    // array to check if customer is buying more than limited item
+    let moreThanOneArray = [];
+    cartItems.forEach((product) => {
+      moreThanOneArray.push(product.id);
+    });
+
+    let quantityReserved = cartItems.filter((product) => product.id === data.id)
+      .length;
+
+    if (
+      (moreThanOneArray.includes(6302019) && data.id === 6302019) ||
+      (moreThanOneArray.includes(6356274) && data.id === 6356274) ||
+      (moreThanOneArray.includes(6290652) && data.id === 6290652) ||
+      (moreThanOneArray.includes(6373489) && data.id === 6373489) ||
+      quantityReserved === data.quantity
+    ) {
+      if (
+        (moreThanOneArray.includes(6302019) && data.id === 6302019) ||
+        (moreThanOneArray.includes(6356274) && data.id === 6356274) ||
+        (moreThanOneArray.includes(6290652) && data.id === 6290652) ||
+        (moreThanOneArray.includes(6373489) && data.id === 6373489)
+      ) {
+        alert(
+          `Max limit of SKU: ${data.id} reached \nReason: Limit (1) per customer.`
+        );
+      } else {
+        alert(
+          `Max limit of SKU: ${data.id} reached \nReason: Max quantity of ${data.quantity} reached.`
+        );
+      }
+    } else {
+      setCartQuantity(cartQuantity + parseInt(quantity));
+      for (let i = 0; i < parseInt(quantity); i++) {
+        tempItemArray.push(data);
+      }
+      setCartItems(cartItems.concat(tempItemArray));
     }
-    setCartItems(cartItems.concat(tempItemArray));
   };
 
   // takes in input from the select input
@@ -114,15 +152,15 @@ const Nav = () => {
   // mass delete function
   const handleClearCartOnClick = () => {
     setCartItems([]);
-    console.log("Cart was cleared");
   };
 
   const handleClearInput = () => {
     setSearchBool(false);
     setSearchInput("");
   };
+
   const ClearButtonRender = () => {
-    if (searchBool) {
+    if (searchBool || searchInput !== "") {
       return (
         <>
           <ListItem button onClick={() => handleClearInput()}>
@@ -134,6 +172,9 @@ const Nav = () => {
         </>
       );
     } else return <></>;
+  };
+  const update = () => {
+    forceUpdate();
   };
 
   return (
@@ -172,7 +213,7 @@ const Nav = () => {
                 <ListItemIcon>
                   <HomeIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Home"}></ListItemText>
+                <ListItemText primary={"Home"} />
               </ListItem>
             </Link>
             {/* Check items in cart */}
@@ -186,7 +227,15 @@ const Nav = () => {
                     <ShoppingCartIcon />
                   </StyledBadge>
                 </ListItemIcon>
-                <ListItemText primary={"Your Cart"}></ListItemText>
+                <ListItemText primary={"Your Cart"} />
+              </ListItem>
+            </Link>
+            <Link to="/admin" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <SupervisorAccountIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Admin"} />
               </ListItem>
             </Link>
           </List>
@@ -203,9 +252,14 @@ const Nav = () => {
           </Route>
           <Route exact path="/cart">
             <Cart
+              update={update}
               cartItems={cartItems}
+              setCartItems={setCartItems}
               handleClearCartOnClick={handleClearCartOnClick}
             />
+          </Route>
+          <Route exact path="/admin">
+            <Admin />
           </Route>
         </Switch>
       </div>
