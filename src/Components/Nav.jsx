@@ -121,13 +121,17 @@ const Nav = () => {
       (moreThanOneArray.includes(6356274) && data.id === 6356274) ||
       (moreThanOneArray.includes(6290652) && data.id === 6290652) ||
       (moreThanOneArray.includes(6373489) && data.id === 6373489) ||
+      (moreThanOneArray.includes(6385535) && data.id === 6385535) ||
+      (moreThanOneArray.includes(6338991) && data.id === 6338991) ||
       quantityReserved === data.quantity
     ) {
       if (
         (moreThanOneArray.includes(6302019) && data.id === 6302019) ||
         (moreThanOneArray.includes(6356274) && data.id === 6356274) ||
         (moreThanOneArray.includes(6290652) && data.id === 6290652) ||
-        (moreThanOneArray.includes(6373489) && data.id === 6373489)
+        (moreThanOneArray.includes(6373489) && data.id === 6373489) ||
+        (moreThanOneArray.includes(6385535) && data.id === 6385535) ||
+        (moreThanOneArray.includes(6338991) && data.id === 6338991)
       ) {
         alert(
           `Max limit of SKU: ${data.id} reached \nReason: Limit (1) per customer.`
@@ -167,6 +171,11 @@ const Nav = () => {
     handleClearCartOnClick();
   };
 
+  // Force update DOM function, called when needed
+  const update = () => {
+    forceUpdate();
+  };
+
   // conditional rendering for Clear button w/ functionality
   const ClearButtonRender = () => {
     if (searchBool || searchInput !== "") {
@@ -182,12 +191,6 @@ const Nav = () => {
       );
     } else return <></>;
   };
-
-  // Force update DOM function, called when needed
-  const update = () => {
-    forceUpdate();
-  };
-
   return (
     // react router
     <Router>
@@ -213,12 +216,11 @@ const Nav = () => {
                   value={searchInput}
                   placeholder="Search..."
                   onChange={(e) => handleSubmitOnChange(e.target.value)}
-                  onKeyPress={(e) => console.log(e.target.value)}
                 />
               </ListItemText>
             </ListItem>
             <ClearButtonRender />
-            <hr />
+            <hr color="#E0E0E0" height="1px" />
             {/* Back to home */}
             <Link to="/" className={classes.link}>
               <ListItem button>
@@ -251,7 +253,6 @@ const Nav = () => {
                 <ListItemText primary={"Admin"} />
               </ListItem>
             </Link>
-            <hr />
           </List>
         </Drawer>
 

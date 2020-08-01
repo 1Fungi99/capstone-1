@@ -80,7 +80,7 @@ const Cart = (props) => {
             Try adding something to cart
           </Typography>
         ) : (
-          // if cart elements are present
+          // if cart elements are present, render
           items.map((cur, num) => (
             <Grid key={num} item md>
               <Card className={classes.card}>

@@ -132,16 +132,6 @@ const Products = [
     quantity: 6,
   },
   {
-    id: 6357223,
-    name: "MPG X570 GAMING EDGE WIFI (Socket AM4) USB-C Gen2 AMD Motherboard",
-    price: 269.99,
-    manufacturer: "MSI",
-    category: ["motherboard", "AMD", "mobo", "am4", "z490", "rgb"],
-    img:
-      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6357/6357223_sd.jpg;maxHeight=640;maxWidth=550",
-    quantity: 8,
-  },
-  {
     id: 6412362,
     name:
       "MPG Z490 GAMING EDGE WIFI (Socket LGA1200) USB-C Gen1 Intel Motherboard with LED Lighting",
@@ -151,6 +141,16 @@ const Products = [
     img:
       "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6412/6412362_sd.jpg;maxHeight=640;maxWidth=550",
     quantity: 15,
+  },
+  {
+    id: 6357223,
+    name: "MPG X570 GAMING EDGE WIFI (Socket AM4) USB-C Gen2 AMD Motherboard",
+    price: 269.99,
+    manufacturer: "MSI",
+    category: ["motherboard", "AMD", "mobo", "am4", "z490", "rgb"],
+    img:
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6357/6357223_sd.jpg;maxHeight=640;maxWidth=550",
+    quantity: 8,
   },
   {
     id: 6409175,
@@ -232,6 +232,17 @@ const Products = [
 
   // Storage
   {
+    id: 6338991,
+    name:
+      "WD - Black SN750 NVMe SSD 2TB Internal PCI Express 3.0 x4 (NVMe) Solid State Drive for Laptops & Desktops",
+    price: 479.99,
+    manufacturer: "Western Digital",
+    category: ["storage", "internal storage", "nvme"],
+    img:
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6338/6338991cv15d.jpg;maxHeight=640;maxWidth=550",
+    quantity: 7,
+  },
+  {
     id: 6324470,
     name:
       "970 EVO Plus 1TB Internal PCI Express 3.0 x4 (NVMe) Solid State Drive with V-NAND Technology",
@@ -241,6 +252,17 @@ const Products = [
     img:
       "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6324/6324470cv11d.jpg;maxHeight=640;maxWidth=550",
     quantity: 17,
+  },
+  {
+    id: 6385535,
+    name:
+      "WD - Blue 4TB Internal SATA Solid State Drive for Laptops with Tiered Caching Technology",
+    price: 549.99,
+    manufacturer: "Western Digital",
+    category: ["storage", "internal storage", "ssd"],
+    img:
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6385/6385535cv12d.jpg;maxHeight=640;maxWidth=550",
+    quantity: 2,
   },
   {
     id: 6317303,
@@ -292,6 +314,27 @@ const Products = [
     img:
       "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6337/6337953cv11d.jpg;maxHeight=640;maxWidth=550",
     quantity: 7,
+  },
+  {
+    id: 6366009,
+    name:
+      "H510 Elite Compact ATX Mid-Tower Case with Dual-Tempered Glass - Matte White",
+    price: 149.99,
+    manufacturer: "NZXT",
+    category: ["atx", "mid tower", "case"],
+    img:
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6366/6366009_sd.jpg;maxHeight=640;maxWidth=550",
+    quantity: 5,
+  },
+  {
+    id: 6374962,
+    name: "MPG SEKIRA eATX Mid-Tower Case",
+    price: 249.99,
+    manufacturer: "MSI",
+    category: ["atx", "mid tower", "case"],
+    img:
+      "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6374/6374962_sd.jpg;maxHeight=640;maxWidth=550",
+    quantity: 2,
   },
 ];
 
